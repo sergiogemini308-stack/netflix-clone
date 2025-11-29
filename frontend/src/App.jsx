@@ -9,7 +9,7 @@ function App() {
 
   // 2. Sacamos la carga de datos a una función para poder reutilizarla
   const fetchMovies = () => {
-    axios.get('http://localhost:8081/api/movies')
+      axios.get('https://netflix-backend-oqcq.onrender.com/api/movies')
       .then(response => setMovies(response.data))
       .catch(error => console.error("Error:", error));
   }

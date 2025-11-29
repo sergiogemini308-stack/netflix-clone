@@ -21,7 +21,7 @@ function MovieForm({ onMovieAdded }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Enviamos los datos a Java
-        axios.post('http://localhost:8081/api/movies', formData)
+        axios.post('https://netflix-backend-oqcq.onrender.com/api/movies', formData)
             .then(response => {
                 alert('¡Película agregada con éxito!');
                 onMovieAdded(); // Avisamos a la App para que recargue la lista
