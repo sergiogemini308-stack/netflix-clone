@@ -1,20 +1,28 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
-import MovieForm from './components/MovieForm'; // <--- 1. Importamos
+import MovieForm from './components/MovieForm';
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [moviePlaying, setMoviePlaying] = useState(null);
+  const [showAdmin, setShowAdmin] = useState(false);
+  // Estado para la película destacada (Banner)
+  const [featuredMovie, setFeaturedMovie] = useState(null);
 
-  // 2. Sacamos la carga de datos a una función para poder reutilizarla
   const fetchMovies = () => {
-      axios.get('https://netflix-backend-oqcq.onrender.com/api/movies')
-      .then(response => setMovies(response.data))
+    // CAMBIA ESTO POR TU URL DE RENDER SI YA SUBISTE
+    // Si estás probando local, usa http://localhost:8081
+    axios.get('https://netflix-backend-oqcq.onrender.com/api/movies')
+      .then(response => {
+        setMovies(response.data);
+        // Elegimos una película al azar para que sea la Portada Gigante
+        const random = Math.floor(Math.random() * response.data.length);
+        setFeaturedMovie(response.data[random]);
+      })
       .catch(error => console.error("Error:", error));
   }
 
-  // Cargar pelis al inicio
   useEffect(() => {
     fetchMovies();
   }, []);
@@ -23,37 +31,74 @@ function App() {
   const handleClose = () => setMoviePlaying(null);
 
   return (
-    <div className="netflix-app">
-      <header>
-        <h1>NETFLIX CLON</h1>
-      </header>
-
-      {/* 3. Aquí ponemos el Formulario */}
-      {/* Le pasamos "fetchMovies" para que cuando guarde, actualice la lista solo */}
-      <MovieForm onMovieAdded={fetchMovies} />
-      
-      <div className="movie-container">
-        {movies.map(movie => (
-          <div key={movie.id} className="movie-card" onClick={() => handlePlay(movie)}>
-            <img src={movie.coverImage} alt={movie.title} />
-            <div className="card-info">
-                <h3>{movie.title}</h3>
-                <p>▶ Reproducir</p>
+    <div className="app">
+      {/* 1. NAVBAR SUPERIOR */}
+      <div className="navbar">
+        <div className="navbar-left">
+            <h1 className="logo">SERGIOFLIX</h1>
+            <div className="nav-links">
+                <span>Inicio</span>
+                <span>Series</span>
+                <span>Películas</span>
+                <span>Novedades populares</span>
+                <span>Mi lista</span>
             </div>
-          </div>
-        ))}
+        </div>
+        <div className="navbar-right">
+            <button className="admin-btn" onClick={() => setShowAdmin(!showAdmin)}>
+                {showAdmin ? 'Cerrar Admin' : 'Admin'}
+            </button>
+            <div className="user-icon"></div>
+        </div>
       </div>
 
+      {showAdmin && <MovieForm onMovieAdded={fetchMovies} />}
+
+      {/* 2. HERO BANNER (Portada Gigante) */}
+      {featuredMovie && (
+        <header 
+            className="hero-banner"
+            style={{
+                backgroundImage: `url("${featuredMovie.coverImage}")`
+            }}
+        >
+            <div className="hero-content">
+                <h1 className="hero-title">{featuredMovie.title}</h1>
+                <h1 className="hero-description">{featuredMovie.description}</h1>
+                <div className="hero-buttons">
+                    <button onClick={() => handlePlay(featuredMovie)}>Reproducir</button>
+                    <button>+ Mi Lista</button>
+                </div>
+            </div>
+            <div className="hero-fade-bottom"></div>
+        </header>
+      )}
+
+      {/* 3. FILAS DE PELÍCULAS (Horizontal Scroll) */}
+      <div className="row">
+        <h2>Tendencias ahora</h2>
+        <div className="row-posters">
+            {movies.map(movie => (
+                <img 
+                    key={movie.id}
+                    className="row-poster"
+                    src={movie.coverImage} 
+                    alt={movie.title}
+                    onClick={() => handlePlay(movie)}
+                />
+            ))}
+        </div>
+      </div>
+
+      {/* REPRODUCTOR */}
       {moviePlaying && (
         <div className="video-overlay" onClick={handleClose}>
           <div className="video-container">
             <button className="close-btn" onClick={handleClose}>X</button>
             <iframe 
-              width="100%" 
-              height="100%" 
+              width="100%" height="100%" 
               src={moviePlaying.videoUrl} 
-              title="Video player" 
-              frameBorder="0" 
+              title="Video" frameBorder="0" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
               allowFullScreen>
             </iframe>
