@@ -1,0 +1,70 @@
+/* App.css - Netflix Style Final */
+:root {
+  --netflix-red: #e50914;
+  --bg-black: #141414;
+}
+
+body {
+  margin: 0; background-color: var(--bg-black); color: white;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  overflow-x: hidden; 
+}
+
+/* --- 1. NAVBAR (Menú Superior) --- */
+.navbar {
+  position: fixed; top: 0; width: 100%; height: 60px; padding: 0 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+  z-index: 100; box-sizing: border-box;
+}
+.navbar-left { display: flex; align-items: center; gap: 20px; }
+.logo { color: var(--netflix-red); font-size: 1.8rem; font-weight: bold; margin-right: 20px; }
+.nav-links span { font-size: 0.9rem; color: #e5e5e5; margin-right: 20px; cursor: pointer; }
+
+/* Botón Admin */
+.admin-btn {
+    background-color: var(--netflix-red);
+    border: none; color: white; padding: 8px 15px; cursor: pointer;
+    font-size: 0.8rem; border-radius: 4px; transition: all 0.3s;
+}
+
+/* --- 2. HERO (Banner Gigante) --- */
+.hero-banner {
+  height: 448px; background-size: cover; background-position: center center;
+  position: relative; color: white;
+}
+.hero-fade-bottom {
+  height: 7.4rem; background-image: linear-gradient(180deg, transparent, rgba(37,37,37,0.61), #111);
+  position: absolute; bottom: 0; width: 100%;
+}
+.hero-content { margin-left: 40px; padding-top: 140px; }
+.hero-title { font-size: 3rem; font-weight: 800; }
+.hero-description { font-size: 1.2rem; max-width: 360px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+
+.hero-buttons button {
+  cursor: pointer; color: black; outline: none; border: none; font-weight: 700;
+  border-radius: 0.2vw; padding: 0.5rem 2rem; background-color: white; margin-top: 20px;
+}
+
+/* --- 3. ROW (Fila de Películas) --- */
+.row-posters {
+  display: flex; overflow-y: hidden; overflow-x: scroll; padding: 20px 0 20px 20px;
+  gap: 10px;
+}
+.row-posters::-webkit-scrollbar { display: none; } /* Ocultar scrollbar */
+
+.row-poster {
+  width: 100%; max-height: 250px; object-fit: contain;
+  transition: transform 450ms; border-radius: 5px; cursor: pointer;
+}
+
+.row-poster:hover { transform: scale(1.08); }
+
+/* --- REPRODUCTOR (Ya lo tenías) --- */
+.video-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.9); display: flex; justify-content: center;
+  align-items: center; z-index: 200;
+}
+.video-container { width: 80%; height: 80%; position: relative; }
+.close-btn { position: absolute; top: -40px; right: 0; background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
