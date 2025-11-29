@@ -4,10 +4,12 @@ import './App.css';
 import MovieForm from './components/MovieForm';
 
 function App() {
-  const [movies, setMovies] = useState([]);
-  const [moviePlaying, setMoviePlaying] = useState(null);
-  const [showAdmin, setShowAdmin] = useState(false);
-  const [featuredMovie, setFeaturedMovie] = useState(null);
+  const [movies, setMovies] = useState([]);
+  const [moviePlaying, setMoviePlaying] = useState(null);
+  const [showAdmin, setShowAdmin] = useState(false); // <-- ¡SOLO ESTA LÍNEA!
+  const [featuredMovie, setFeaturedMovie] = useState(null);
+
+    // ... el resto del código es correcto ...
 
   const fetchMovies = () => {
     // ESTE LINK DEBE SER TU URL DE RENDER PARA QUE FUNCIONE EN INTERNET
