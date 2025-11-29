@@ -1,0 +1,40 @@
+.form-container {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border: 1px solid #333;
+    max-width: 500px;
+    margin: 20px auto; /* Centrado */
+}
+
+.form-container h2 {
+    color: white;
+    margin-top: 0;
+    text-align: center;
+}
+
+.form-container input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #333;
+    border: 1px solid #444;
+    color: white;
+    border-radius: 4px;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #E50914; /* Rojo Netflix */
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.form-container button:hover {
+    background-color: #b20710;
+}
