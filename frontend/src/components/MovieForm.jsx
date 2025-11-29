@@ -14,7 +14,7 @@ function MovieForm({ onMovieAdded }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         // ESTA ES LA LÍNEA CLAVE: PON TU URL DE RENDER AQUÍ
-        axios.post('https://netflix-backend-oqcq.onrender.com/api/movies', formData)
+        axios.post('https://netflix-clone-sv5b.onrender.com/api/movies', formData)
             .then(response => {
                 alert('¡Película agregada con éxito!');
                 onMovieAdded(); 

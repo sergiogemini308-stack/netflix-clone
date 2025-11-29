@@ -13,7 +13,7 @@ function App() {
 
   const fetchMovies = () => {
     // ESTE LINK DEBE SER TU URL DE RENDER PARA QUE FUNCIONE EN INTERNET
-    axios.get('https://netflix-backend-oqcq.onrender.com/api/movies')
+    axios.get('https://netflix-clone-sv5b.onrender.com/api/movies')
       .then(response => {
         setMovies(response.data);
         const random = Math.floor(Math.random() * response.data.length);
