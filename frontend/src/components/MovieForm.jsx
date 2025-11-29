@@ -1,31 +1,23 @@
 import { useState } from 'react';
 import axios from 'axios';
-import './MovieForm.css'; // Ahora crearemos este estilo
+import './MovieForm.css';
 
 function MovieForm({ onMovieAdded }) {
     const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        videoUrl: '',
-        coverImage: '',
-        releaseYear: ''
+        title: '', description: '', videoUrl: '', coverImage: '', releaseYear: ''
     });
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Enviamos los datos a Java
+        // ESTA ES LA LÍNEA CLAVE: PON TU URL DE RENDER AQUÍ
         axios.post('https://netflix-backend-oqcq.onrender.com/api/movies', formData)
             .then(response => {
                 alert('¡Película agregada con éxito!');
-                onMovieAdded(); // Avisamos a la App para que recargue la lista
-                // Limpiamos el formulario
+                onMovieAdded(); 
                 setFormData({ title: '', description: '', videoUrl: '', coverImage: '', releaseYear: '' });
             })
             .catch(error => {

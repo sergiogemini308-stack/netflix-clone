@@ -6,17 +6,14 @@ import MovieForm from './components/MovieForm';
 function App() {
   const [movies, setMovies] = useState([]);
   const [moviePlaying, setMoviePlaying] = useState(null);
-  const [showAdmin, setShowAdmin] = useState(false);
-  // Estado para la película destacada (Banner)
+  const [showAdmin, setShowAdmin] = useState(false); // PARA OCULTAR/MOSTRAR FORM
   const [featuredMovie, setFeaturedMovie] = useState(null);
 
   const fetchMovies = () => {
     // CAMBIA ESTO POR TU URL DE RENDER SI YA SUBISTE
-    // Si estás probando local, usa http://localhost:8081
     axios.get('https://netflix-backend-oqcq.onrender.com/api/movies')
       .then(response => {
         setMovies(response.data);
-        // Elegimos una película al azar para que sea la Portada Gigante
         const random = Math.floor(Math.random() * response.data.length);
         setFeaturedMovie(response.data[random]);
       })
@@ -40,7 +37,6 @@ function App() {
                 <span>Inicio</span>
                 <span>Series</span>
                 <span>Películas</span>
-                <span>Novedades populares</span>
                 <span>Mi lista</span>
             </div>
         </div>
@@ -54,27 +50,21 @@ function App() {
 
       {showAdmin && <MovieForm onMovieAdded={fetchMovies} />}
 
-      {/* 2. HERO BANNER (Portada Gigante) */}
+      {/* HERO BANNER (Portada Gigante) */}
       {featuredMovie && (
-        <header 
-            className="hero-banner"
-            style={{
-                backgroundImage: `url("${featuredMovie.coverImage}")`
-            }}
-        >
+        <header className="hero-banner" style={{backgroundImage: `url("${featuredMovie.coverImage}")`}}>
             <div className="hero-content">
                 <h1 className="hero-title">{featuredMovie.title}</h1>
                 <h1 className="hero-description">{featuredMovie.description}</h1>
                 <div className="hero-buttons">
                     <button onClick={() => handlePlay(featuredMovie)}>Reproducir</button>
-                    <button>+ Mi Lista</button>
                 </div>
             </div>
             <div className="hero-fade-bottom"></div>
         </header>
       )}
 
-      {/* 3. FILAS DE PELÍCULAS (Horizontal Scroll) */}
+      {/* FILAS DE PELÍCULAS */}
       <div className="row">
         <h2>Tendencias ahora</h2>
         <div className="row-posters">
@@ -90,7 +80,7 @@ function App() {
         </div>
       </div>
 
-      {/* REPRODUCTOR */}
+      {/* REPRODUCTOR DE VIDEO */}
       {moviePlaying && (
         <div className="video-overlay" onClick={handleClose}>
           <div className="video-container">
