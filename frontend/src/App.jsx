@@ -6,11 +6,11 @@ import MovieForm from './components/MovieForm';
 function App() {
   const [movies, setMovies] = useState([]);
   const [moviePlaying, setMoviePlaying] = useState(null);
-  const [showAdmin, setShowAdmin] = useState(false); // PARA OCULTAR/MOSTRAR FORM
+  const [showAdmin, setShowAdmin] = useState(false);
   const [featuredMovie, setFeaturedMovie] = useState(null);
 
   const fetchMovies = () => {
-    // CAMBIA ESTO POR TU URL DE RENDER SI YA SUBISTE
+    // ESTE LINK DEBE SER TU URL DE RENDER PARA QUE FUNCIONE EN INTERNET
     axios.get('https://netflix-backend-oqcq.onrender.com/api/movies')
       .then(response => {
         setMovies(response.data);
@@ -69,13 +69,7 @@ function App() {
         <h2>Tendencias ahora</h2>
         <div className="row-posters">
             {movies.map(movie => (
-                <img 
-                    key={movie.id}
-                    className="row-poster"
-                    src={movie.coverImage} 
-                    alt={movie.title}
-                    onClick={() => handlePlay(movie)}
-                />
+                <img key={movie.id} className="row-poster" src={movie.coverImage} alt={movie.title} onClick={() => handlePlay(movie)} />
             ))}
         </div>
       </div>
